@@ -1,0 +1,11 @@
+Jon Higgins
+Alan Labouseur
+CMPT 432
+Lab 0
+	Throughout reading the books and doing my own research I have decided to pick javaScript to build my compiler. I decided that it was the best choice for me. Since I checked out some compilers online and I have read many forums I came to a list of goals for my compiler.
+1. De-bugging
+2. Optimization
+3. Casting and Type-Checking
+4. I want it to run quickly, or proportionately to the workload or length of code.
+5. I want it to be easy to read and interpreted and to never be misleading
+6. I want it to be solid and never have errors go undetected.
