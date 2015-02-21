@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+/* 
+Jonathan Higgins 
+Compilers CMPT 432-Alan Labouseur
+0.1
+*/
+    <title>HiggelyPuff Compiler</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="compiler.css" />
+</head>
+
+// loads this when page is opened or refreshed.
+<body onload="init();">
+    <h1>I choose you HiggelyPuff!</h1>
+
+    <h2> HiggelyPuff Compile!</h2>
+
+    <pre>
+    		// pre formatted text  which define  equation, digits, and operation
+G ::== E
+E ::== D O E | D
+D ::== 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 
+O ::== + | -
+	</pre>
+
+		<textarea id ="taInputSourceCode" cols="50" rows="20"></textarea>
+
+		<br>
+		<br>
+
+		<input type="button" id="btnCompile" Value="HiggelyPuff Compile!" onclick="btnCompile_click();"/>
+
+		<br>
+		<br>
+
+		<textarea align="right" id ="taParsedOutput" cols="50" rows="20"></textarea>
+
+
+
+
+</body>
+</html>
