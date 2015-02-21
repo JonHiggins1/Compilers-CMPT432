@@ -2,31 +2,35 @@
 <html>
 <head>
 
-/* 
+<!
 Jonathan Higgins 
 Compilers CMPT 432-Alan Labouseur
 0.1
-*/
+>
     <title>HiggelyPuff Compiler</title>
 
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="compiler.css" />
+    <link rel="stylesheet" type="text/css" href="HiggelyPuffCompiler.css" />
+    
 </head>
 
-// loads this when page is opened or refreshed.
+<! loads this when page is opened or refreshed.>
 <body onload="init();">
     <h1>I choose you HiggelyPuff!</h1>
 
     <h2> HiggelyPuff Compile!</h2>
 
     <pre>
-    		// pre formatted text  which define  equation, digits, and operation
+<!pre formatted text  which define  equation, digits, and operation>
 G ::== E
 E ::== D O E | D
 D ::== 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 
 O ::== + | -
 	</pre>
+
+<!here i am dividing the text areas for the input and output of the code and parse.>
+	<div>
 
 		<textarea id ="taInputSourceCode" cols="50" rows="20"></textarea>
 
@@ -39,6 +43,27 @@ O ::== + | -
 		<br>
 
 		<textarea align="right" id ="taParsedOutput" cols="50" rows="20"></textarea>
+
+	</div>
+
+
+
+<! below are my global variables.... By the way EOF = End Of File use this to show that the file is done.>	
+
+<script type="text/javascript"></script>
+
+var tokens = "";
+var tokenIndex = 0;
+var currentToken = "";
+var errorCount = 0;
+var EOF = "$";
+
+function init() {
+	//This clears the text area 
+	document.getElementById("taParsedOutput").getvalue = "";
+
+	//Here we are setting the starting values for the global variables
+}
 
 
 
