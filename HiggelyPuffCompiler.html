@@ -23,10 +23,42 @@ Compilers CMPT 432-Alan Labouseur
 
     <pre>
 <!pre formatted text  which define  equation, digits, and operation>
-G ::== E
-E ::== D O E | D
-D ::== 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 
-O ::== + | -
+          Our Grammar
+Program               ::== Block $
+Block                 ::== { StatementList }
+StatementList         ::== Statement StatementList
+                      ::== ε
+Statement             ::== PrintStatement
+                      ::== AssignmentStatement
+                      ::== VarDecl
+                      ::== WhileStatement
+                      ::== IfStatement
+                      ::== Block
+PrintStatement        ::== print ( Expr )
+AssignmentStatement   ::== Id = Expr
+VarDecl               ::== type Id
+WhileStatement        ::== while BooleanExpr Block
+IfStatement           ::== if BooleanExpr Block
+Expr                  ::== IntExpr
+                      ::== StringExpr
+                      ::== BooleanExpr
+                      ::== Id
+IntExpr               ::== digit intop Expr
+                      ::== digit
+StringExpr            ::== " CharList "
+BooleanExpr           ::== ( Expr boolop Expr )
+                      ::== boolval
+Id                    ::== char
+CharList              ::== char CharList
+                      ::== space CharList
+                      ::== ε
+type                  ::== int | string | boolean
+char                  ::== a | b | c ... z
+space                 ::== the space character
+digit                 ::== 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0
+boolop                ::== == | !=
+boolval               ::== false | true
+intop                 ::== +
 	</pre>
 
 <!here i am dividing the text areas for the input and output of the code and parse.>
@@ -49,9 +81,8 @@ O ::== + | -
 
 
 <! below are my global variables.... By the way EOF = End Of File use this to show that the file is done.>	
-
-<script type="text/javascript"></script>
-
+<script type="text/javascript" src=scripts/utils.js></script>
+<script type="text/javascript">
 var tokens = "";
 var tokenIndex = 0;
 var currentToken = "";
@@ -63,10 +94,23 @@ function init() {
 	document.getElementById("taParsedOutput").getvalue = "";
 
 	//Here we are setting the starting values for the global variables
+tokens = "";
+tokenIndex = 0;
+currentToken = ' ';
+errorCount = 0;
+}
+
+function btnCompile_click() {
+	//This is the function that is triggered when a user pressed the HiggelyPuff Compile! button
+	init();
+	putMessage("HiggelyPuff starts to Compile!");
+
 }
 
 
 
 
+
+</script>
 </body>
 </html>
