@@ -44,6 +44,7 @@ Compilers CMPT 432-Alan Labouseur
 <script type="text/javascript" src=scripts/utils.js></script>
 <script type="text/javascript" src=scripts/lexer.js></script>
 <script type="text/javascript">
+
 var tokens = "";
 var tokenIndex = 0;
 var currentToken = "";
@@ -51,6 +52,7 @@ var errorCount = 0;
 var EOF = "$";
 
 function init() {
+
 	//This clears the text area 
 	document.getElementById("taParsedOutput").getvalue = "";
 
@@ -64,7 +66,141 @@ errorCount = 0;
 function btnCompile_click() {
 	//This is the function that is triggered when a user pressed the HiggelyPuff Compile! button
 	init();
-	putMessage("HiggelyPuff starts to Compile!");
+	taMessage("HiggelyPuff starts to Compile!");
+
+  //grabbing the tokens from the lexer
+  tokens = lex();
+
+  taMessage("Trainer Lex returned {" + tokens + "}");
+
+  // now we are parsin'
+  parse();
+}
+
+function taMessage(msg) {
+  document.getElementById("taParsedOutput").value += msg + "\n";
+}
+
+function parse() {
+  taMessage("HiggelyPuff is Parsing!!! [" + tokens + "]");
+
+  //get the next token
+  currentToken = grabNextToken();
+
+  //a good and valid parse stems from the program production, so we will start there.
+  ParseProgram();
+
+  //show the results
+  taMessage("HiggelyPuff's parse found " + errorCount + " error(s).");
+  }
+
+  function parseProgram() {
+    // a program production can only be a "block $" so parse that
+    parseBlock();
+  }
+
+  function ParseBlock(){
+    //all block productions start with a "{" to denote new scope so we have to make sure it starts with one.
+    checkToken("{")
+
+    //look ahead i character, which is now the current token because it was consumed and see which  block production to follow.
+    // if current token doesnt equal end of file then...
+    if (currentToken != $) {
+
+      //not done expecting a {
+      checkToken("statementList")
+      checkToken("}")
+
+      parseBlock();
+
+    } else {
+      putMessage("EOF reached");
+    }
+  }
+
+function checkToken(expectedType) {
+  //this is a function to validate that we have the correct token type and to get the next one.
+
+  switch(expectedType) {
+    case "type":  putMessage("Expecting a type (i.e. int, string, and boolean");
+
+                  if (currentToken=="int" || currentToken=="string" || currentToken=="boolean") {
+                    putMessage("HiggelyPuff Got a type! Thats pretty neat!");
+                  } else {
+                        errorCount++;
+                        putMessage("whatchay doin'?!, this aint a type. There is now an error at position" + tokenIndex + ".");
+                        }
+
+                  }
+                  break;
+
+    case "char":  putMessage("Expecting a Character");
+
+                  if (currentToken=="a" || currentToken=="b" || currentToken=="c" || 
+                      currentToken=="d" || currentToken=="e" || currentToken=="f" || 
+                      currentToken=="g" || currentToken=="h" || currentToken=="i" || 
+                      currentToken=="j" || currentToken=="k" || currentToken=="l" || 
+                      currentToken=="m" || currentToken=="n" || currentToken=="o" || 
+                      currentToken=="p" || currentToken=="q" || currentToken=="r" ||  
+                      currentToken=="s" || currentToken=="t" || currentToken=="u" || 
+                      currentToken=="v" || currentToken=="w" || currentToken=="x" || 
+                      currentToken=="y" || currentToken=="z") {
+                      putMessage("Got a Character!")
+                  } else {
+                            errorCount++;
+                            putMessage("I was Expecting a lower-case alphabetic character...Come on man! There was an erroe at position" + tokenindex + ".")
+                       }
+                       break;
+
+    case "space":   putMessage("Expecting a space");
+
+                    if (currentToken==" ") {
+                       putMessage("Woo we got a space!")
+                    } else {
+                        errorCount++;
+                        putMessage("Ooppsie daisy that is NOT a space! There is an Error at position" + tokenIndex + ".");
+                       }
+                       break;
+
+    case "digit":   putMessage("Expecting a digit");
+
+                    if (currentToken=="0" || currentToken=="1" || currentToken=="2" || 
+                        currentToken=="3" || currentToken=="4" || currentToken=="5" || 
+                        currentToken=="6" || currentToken=="7" || currentToken=="8" || 
+                        currentToken=="9") {
+                        putMessage("HiggelyPuff Got a digit!");
+                   } else {
+                      errorCount++;
+                      putMessage("Thats NOT a digit. Those are not the input values that we are looking for. There is an Error at position" + tokenIndex + ".");
+                      }
+                      break;
+
+    case "boolop":   putMessage("Expecting a Boolean Operation");
+
+                     if (currentToken=="==" || currentToken=="!=") {
+                         putMessage("Got a Booelan Operation!");
+                     } else {
+                        errorCount++;
+                        putMessage("Oh no! Mr.Bill says there is supposed to be a Boolean Operation here! There is an Erroe at Poistion" + tokenIndex + ".");
+
+                     }
+                     break;
+
+
+
+
+  }
+}
+
+
+
+function statementList() {
+  //all statement list productions need a statement so wee need to check for that.
+
+}
+
+}
+
 
 
 
@@ -101,6 +237,9 @@ Id                    ::== char
 CharList              ::== char CharList
                       ::== space CharList
                       ::== ε
+  </pre>
+  <br>
+  <pre>
 type                  ::== int | string | boolean
 char                  ::== a | b | c ... z
 space                 ::== the space character
