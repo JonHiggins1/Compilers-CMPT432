@@ -134,7 +134,7 @@ function checkToken(expectedType) {
                   }
                   break;
 
-    case "char":  putMessage("Expecting a Character");
+    case "char":  putMessage("Expecting a Character.");
 
                   if (currentToken=="a" || currentToken=="b" || currentToken=="c" || 
                       currentToken=="d" || currentToken=="e" || currentToken=="f" || 
@@ -152,17 +152,17 @@ function checkToken(expectedType) {
                        }
                        break;
 
-    case "space":   putMessage("Expecting a space");
+    case "space":   putMessage("Expecting a space.");
 
                     if (currentToken==" ") {
                        putMessage("Woo we got a space!")
                     } else {
                         errorCount++;
-                        putMessage("Ooppsie daisy that is NOT a space! There is an Error at position" + tokenIndex + ".");
+                        putMessage("Oopsie daisy that is NOT a space! There is an Error at position" + tokenIndex + ".");
                        }
                        break;
 
-    case "digit":   putMessage("Expecting a digit");
+    case "digit":   putMessage("Expecting a digit.");
 
                     if (currentToken=="0" || currentToken=="1" || currentToken=="2" || 
                         currentToken=="3" || currentToken=="4" || currentToken=="5" || 
@@ -175,27 +175,45 @@ function checkToken(expectedType) {
                       }
                       break;
 
-    case "boolop":   putMessage("Expecting a Boolean Operation");
+    case "boolop":   putMessage("Expecting a Boolean Operation.");
 
                      if (currentToken=="==" || currentToken=="!=") {
                          putMessage("Got a Booelan Operation!");
                      } else {
                         errorCount++;
-                        putMessage("Oh no! Mr.Bill says there is supposed to be a Boolean Operation here! There is an Erroe at Poistion" + tokenIndex + ".");
+                        putMessage("Oh no! Mr.Bill says there is supposed to be a Boolean Operation here! There is an Error at Poistion" + tokenIndex + ".");
 
                      }
                      break;
 
+    case "boolval":  putMessage("Expecting a boolean Value. (i.e true | false");
 
+                     if (currentToken=="false" || currentToken=="true") {
+                         putMessage("Got a Boolean Value!");
+                     } else {
+                        errorCount++;
+                        putMessage("We have a code 2319! Code 2319! Expecting to see a Boolean Value.There is an Error at Poistion" + tokenIndex + ".");
 
+                     }
+                     break;
 
+    case "intop":  putMessage("Expecting a Integer Operation.");
+
+                     if (currentToken=="+") {
+                         putMessage("Got a Integer Operation!");
+                     } else {
+                        errorCount++;
+                        putMessage("Something went wrong. we were expecting an integer operation. There is an Error at Poistion" + tokenIndex + ".");
+
+                     }
+                     break;
   }
 }
 
 
 
 function statementList() {
-  //all statement list productions need a statement so wee need to check for that.
+  //all statement list productions need a statement so we need to check for that.
 
 }
 
