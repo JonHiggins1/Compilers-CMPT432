@@ -14,8 +14,6 @@ Compilers CMPT 432-Alan Labouseur
     <link rel="stylesheet" type="text/css" href="HiggelyPuffCompiler.css" />
     
 </head>
-
-<! loads this when page is opened or refreshed.>
 <body onload="init();">
     <h1>I choose you HiggelyPuff!</h1>
 
@@ -26,13 +24,13 @@ Compilers CMPT 432-Alan Labouseur
 
 		<textarea id ="taInputSourceCode" cols="50" rows="20"></textarea>
 
-		<br>
-		<br>
+    <br>
+    <br>
 
-		<input type="button" id="btnCompile" Value="HiggelyPuff Compile!" onclick="btnCompile_click();"/>
+		<input type="button" id="btnCompile" Value="Compile" onclick="btnCompile_click();"/>
 
-		<br>
-		<br>
+    <br>
+    <br>
 
 		<textarea align="right" id ="taParsedOutput" cols="50" rows="20"></textarea>
 
@@ -41,8 +39,8 @@ Compilers CMPT 432-Alan Labouseur
 
 
 <! below are my global variables.... By the way EOF = End Of File use this to show that the file is done.>	
-<script type="text/javascript" src=scripts/utils.js></script>
-<script type="text/javascript" src=scripts/lexer.js></script>
+<script type="text/javascript" src="C:\Users\Jon Higgins\Desktop\Compilers-CMPT432/utils.js"></script>
+<script type="text/javascript" src="C:\Users\Jon Higgins\Desktop\Compilers-CMPT432/lexer.js"></script>
 <script type="text/javascript">
 
 var tokens = "";
@@ -54,13 +52,13 @@ var EOF = "$";
 function init() {
 
 	//This clears the text area 
-	document.getElementById("taParsedOutput").getvalue = "";
+	document.getElementById("taParsedOutput").value = "";
 
 	//Here we are setting the starting values for the global variables
-tokens = "";
-tokenIndex = 0;
-currentToken = ' ';
-errorCount = 0;
+  tokens = "";
+  tokenIndex = 0;
+  currentToken = ' ';
+  errorCount = 0;
 }
 
 function btnCompile_click() {
@@ -71,7 +69,7 @@ function btnCompile_click() {
   //grabbing the tokens from the lexer
   tokens = lex();
 
-  taMessage("Trainer Lex returned {" + tokens + "}");
+  taMessage("Trainer Lex returned [" + tokens + "]");
 
   // now we are parsin'
   parse();
@@ -97,9 +95,12 @@ function parse() {
   function parseProgram() {
     // a program production can only be a "block $" so parse that
     parseBlock();
+  } else {
+    taMessage(EOF reahed.);
+  }
   }
 
-  function ParseBlock(){
+  function parseBlock(){
     //all block productions start with a "{" to denote new scope so we have to make sure it starts with one.
     checkToken("{")
 
@@ -114,7 +115,7 @@ function parse() {
       parseBlock();
 
     } else {
-      putMessage("EOF reached");
+      taMessage("EOF reached");
     }
   }
 
@@ -122,19 +123,17 @@ function checkToken(expectedType) {
   //this is a function to validate that we have the correct token type and to get the next one.
 
   switch(expectedType) {
-    case "type":  putMessage("Expecting a type (i.e. int, string, and boolean");
+    case "type":  taMessage("Expecting a type (i.e. int, string, and boolean");
 
                   if (currentToken=="int" || currentToken=="string" || currentToken=="boolean") {
-                    putMessage("HiggelyPuff Got a type! Thats pretty neat!");
+                    taMessage("HiggelyPuff Got a type! Thats pretty neat!");
                   } else {
                         errorCount++;
-                        putMessage("whatchay doin'?!, this aint a type. There is now an error at position" + tokenIndex + ".");
+                        taMessage("whatchay doin'?!, this aint a type. There is now an error at position" + tokenIndex + ".");
                         }
+                        break;
 
-                  }
-                  break;
-
-    case "char":  putMessage("Expecting a Character.");
+    case "char":  taMessage("Expecting a Character.");
 
                   if (currentToken=="a" || currentToken=="b" || currentToken=="c" || 
                       currentToken=="d" || currentToken=="e" || currentToken=="f" || 
@@ -145,82 +144,324 @@ function checkToken(expectedType) {
                       currentToken=="s" || currentToken=="t" || currentToken=="u" || 
                       currentToken=="v" || currentToken=="w" || currentToken=="x" || 
                       currentToken=="y" || currentToken=="z") {
-                      putMessage("Got a Character!")
+                      taMessage("Got a Character!")
                   } else {
                             errorCount++;
-                            putMessage("I was Expecting a lower-case alphabetic character...Come on man! There was an erroe at position" + tokenindex + ".")
+                            taMessage("I was Expecting a lower-case alphabetic character...Come on man! There was an erroe at position" + tokenindex + ".")
                        }
                        break;
 
-    case "space":   putMessage("Expecting a space.");
+    case "space":   taMessage("Expecting a space.");
 
                     if (currentToken==" ") {
-                       putMessage("Woo we got a space!")
+                       taMessage("Woo we got a space!")
                     } else {
                         errorCount++;
-                        putMessage("Oopsie daisy that is NOT a space! There is an Error at position" + tokenIndex + ".");
+                        taMessage("Oopsie daisy that is NOT a space! There is an Error at position" + tokenIndex + ".");
                        }
                        break;
 
-    case "digit":   putMessage("Expecting a digit.");
+    case "digit":   taMessage("Expecting a digit.");
 
                     if (currentToken=="0" || currentToken=="1" || currentToken=="2" || 
                         currentToken=="3" || currentToken=="4" || currentToken=="5" || 
                         currentToken=="6" || currentToken=="7" || currentToken=="8" || 
                         currentToken=="9") {
-                        putMessage("HiggelyPuff Got a digit!");
+                        taMessage("HiggelyPuff Got a digit!");
                    } else {
                       errorCount++;
-                      putMessage("Thats NOT a digit. Those are not the input values that we are looking for. There is an Error at position" + tokenIndex + ".");
+                      taMessage("Thats NOT a digit. Those are not the input values that we are looking for. There is an Error at position" + tokenIndex + ".");
                       }
                       break;
 
-    case "boolop":   putMessage("Expecting a Boolean Operation.");
+    case "boolop":   taMessage("Expecting a Boolean Operation.");
 
                      if (currentToken=="==" || currentToken=="!=") {
-                         putMessage("Got a Booelan Operation!");
+                         taMessage("Got a Booelan Operation!");
                      } else {
                         errorCount++;
-                        putMessage("Oh no! Mr.Bill says there is supposed to be a Boolean Operation here! There is an Error at Poistion" + tokenIndex + ".");
+                        taMessage("Oh no! Mr.Bill says there is supposed to be a Boolean Operation here! There is an Error at Poistion" + tokenIndex + ".");
 
                      }
                      break;
 
-    case "boolval":  putMessage("Expecting a boolean Value. (i.e true | false");
+    case "boolval":  taMessage("Expecting a boolean Value. (i.e true | false");
 
                      if (currentToken=="false" || currentToken=="true") {
-                         putMessage("Got a Boolean Value!");
+                         taMessage("Got a Boolean Value!");
                      } else {
                         errorCount++;
-                        putMessage("We have a code 2319! Code 2319! Expecting to see a Boolean Value.There is an Error at Poistion" + tokenIndex + ".");
+                        taMessage("We have a code 2319! Code 2319! Expecting to see a Boolean Value.There is an Error at Poistion" + tokenIndex + ".");
 
                      }
                      break;
 
-    case "intop":  putMessage("Expecting a Integer Operation.");
+    case "intop":  taMessage("Expecting a Integer Operation.");
 
                      if (currentToken=="+") {
-                         putMessage("Got a Integer Operation!");
+                         taMessage("Got a Integer Operation!");
                      } else {
                         errorCount++;
-                        putMessage("Something went wrong. we were expecting an integer operation. There is an Error at Poistion" + tokenIndex + ".");
+                        taMessage("Something went wrong. we were expecting an integer operation. There is an Error at Poistion" + tokenIndex + ".");
 
                      }
+                     break;
+                     taMessage("Parse Error: Invalid Token Type at position " + tokenIndex + ".")
                      break;
   }
 }
 
-
-
-function statementList() {
+function parseStatementList() {
   //all statement list productions need a statement so we need to check for that.
+  //now we look ahead
+  if(currentToken != $) {
+    checkToken("statement");
+    checkToken("StatementList");
+    ParseStatementList();
+
+  } else {
+
+    //checkToken("ε");
+    //ParseStatementList();
+
+  //} else {
+
+    taMessage("EOF Reached!");
+
+  }
 
 }
 
+function parseStatement() {
+  // gotta check and make sure we either get a printstatment, assignment statement, vardecl, while statment, if statment, and or block.
+  if (currentToken != $) {
+    checkToken("PrintStatement");
+    //parseStatement();
+
+  } else {
+
+    checkToken("AssignmentStatement");
+    //parseStatement();
+
+  } else {
+
+    checkToken("VarDecl");
+    parseStatement();
+
+  } else {
+
+    checkToken("WhileStatement");
+    parseStatement();
+
+  } else {
+
+    checkToken("IfStatement");
+    parseStatement();
+
+  } else {
+
+    checkToken("Block");
+    parseStatement();
+
+  } else {
+
+    taMessage("EOF reached");
+  }
 }
 
+function parsePrintStatement() {
+  // makin sure it has "Print(expr)"
+  if(currentToken != $) {
+    checkToken("print");
+    checkToken("(");
+    checkToken("Expr");
+    checkToken(")");
+    parsePrintStatement();
 
+  } else {
 
+    taMessage("EOF Reached");
+
+  }
+}
+
+function parseAssignmentStatment() {
+  // need to make sure that it had id = expr
+  if(currentToken != $) {
+    checkToken("Id");
+    checkToken("=");
+    checkToken("Expr");
+    ParseStatement();
+
+  } else {
+
+    taMessage("EOF Reached");
+
+  }
+}
+
+function parseVarDecl() {
+  if(currentToken != $) {
+    checkToken("type");
+    checkToken("Id");
+    parseVarDecl();
+
+  } else {
+
+    taMessage("EOF Reached");
+
+  }
+}
+
+function parseWhileStatment() {
+  if( currentToken != $) {
+    checkToken("while");
+    checkToken("BooleanExpr");
+    checkToken("Block");
+    parseWhileStatment();
+
+  } else {
+
+    taMessage("EOF Reached");
+
+  }
+}
+
+function parseIfStatement() {
+  if( currentToken != $) {
+    checkToken("if");
+    checkToken("BooleanExpr");
+    checkToken("Block");
+    parseIfStatement();
+
+  } else {
+
+    taMessage("EOF Reached");
+
+  }
+}
+
+function parseExpr() {
+  if( currentToken != $) {
+    checkToken("IntExpr");
+    parseExpr();
+
+  } else {
+
+    checkToken("StringExpr");
+    parseExpr();
+
+  } else {
+
+    checkToken("BooleanExpr");
+    parseExpr();
+
+  } else {
+
+    checkToken("Id");
+    parseExpr();
+
+  } else {
+
+    taMessage("EOF Reached");
+  }
+}
+
+function ParseIntExpr() {
+  if( currentToken != $) {
+    checkToken("digit");
+    checkToken("intop");
+    checkToken("Expr");
+    parseIntExpr();
+
+  } else {
+
+    checkToken("digit");
+    parseIntExpr();
+
+  } else {
+
+    taMessage("EOF Reached");
+  }
+}
+
+function parseStringExpr() {
+  if( currentToken != $) {
+    checkToken('"');
+    checkToken("CharList");
+    checkToken('"');
+    parseStringExpr();
+
+  } else {
+
+    taMessage("EOF Reached");
+  }
+}
+
+function parseBooleanExpr() {
+  if( currentToken != $) {
+    checkToken("(");
+    checkToken("Expr");
+    checkToken("boolop");
+    checkToken("Expr");
+    parseBooleanExpr();
+
+  } else {
+
+    checkToken("boolval");
+    parseBooleanExpr();
+
+  } else {
+
+    taMessage("EOF Reached");
+  }
+}
+
+function parseId() {
+  if( currentToken != $) {
+    checkToken("char");
+    parseid();
+
+  } else {
+
+    taMessage("EOF Reached");
+
+  }
+}
+
+function parseCharList() {
+  if( currentToken != $) {
+    checkToken("char");
+    checkToken("CharList");
+    parseCharList();
+
+  } else {
+
+    checkToken("space");
+    checkToken("CharList");
+    parseCharList();
+
+  } else {
+
+    checkToken("ε");
+    parseCharList();
+
+  } else {
+
+    taMessage("EOF Reached");
+
+  }
+}
+
+function getNextToken() {
+  var thisToken = EOF;
+  if (tokenIndex < tokens.length) {
+    thisToken = [tokenIndex];
+    taMessage("currentToken:" + thisToken);
+    tokenIndex++;
+  }
+  return thisToken;
+}
 
 </script>
 
