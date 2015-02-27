@@ -2,9 +2,45 @@
 
 body {
 	background-color: #000000;
-	background-image: url(http://www.wallpaper4me.com/images/wallpapers/jigglypuff-799425.jpeg);
-	font-family: Candara, Verdana, Consolas;
+	font-family: Impact, Charcoal, sans-serif;
 	font-size: 12pt;
 	font-weight: normal;
 	font-style: normal;
+
+}
+
+h1 {
+	color: white;
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 30pt;
+	font-weight: normal;
+	font-style: normal;
+}
+
+h2 {
+	color: white;
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 16pt;
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+pre {
+	color: white;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12pt;
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+hr{
+	display: block; 
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: outset;
+    border-width: 2px;
 }

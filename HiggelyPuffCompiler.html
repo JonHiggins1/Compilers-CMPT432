@@ -1,48 +1,44 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
-<!
+<!--
 Jonathan Higgins 
 Compilers CMPT 432-Alan Labouseur
 0.1
->
+-->
     <title>HiggelyPuff Compiler</title>
-
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
     <link rel="stylesheet" type="text/css" href="HiggelyPuffCompiler.css" />
     
 </head>
+
 <body onload="init();">
     <h1>I choose you HiggelyPuff!</h1>
-
+    <hr>
     <h2> HiggelyPuff Compile!</h2>
 
-<!here i am dividing the text areas for the input and output of the code and parse.>
+<div>
+  <img style= "float:right;" src="C:\Users\Jon Higgins\Desktop\Compilers-CMPT432/pokeball.jpg" alt="PokeBall" width="300" height="200"/>
+</div>
+
+<!--here i am dividing the text areas for the input and output of the code and parse.-->
 	<div>
 
 		<textarea id ="taInputSourceCode" cols="50" rows="20"></textarea>
-
     <br>
     <br>
-
-		<input type="button" id="btnCompile" Value="Compile" onclick="btnCompile_click();"/>
-
+		<input type="button" id="btnCompile" value="HiggelyPuff Compile!" onclick="btnCompile_click();"/>
     <br>
     <br>
-
 		<textarea align="right" id ="taParsedOutput" cols="50" rows="20"></textarea>
 
 	</div>
 
-
-
-<! below are my global variables.... By the way EOF = End Of File use this to show that the file is done.>	
+<!-- below are my global variables.... By the way EOF = End Of File use this to show that the file is done.-->	
 <script type="text/javascript" src="C:\Users\Jon Higgins\Desktop\Compilers-CMPT432/utils.js"></script>
 <script type="text/javascript" src="C:\Users\Jon Higgins\Desktop\Compilers-CMPT432/lexer.js"></script>
 <script type="text/javascript">
-
+//global variables
 var tokens = "";
 var tokenIndex = 0;
 var currentToken = "";
@@ -50,27 +46,22 @@ var errorCount = 0;
 var EOF = "$";
 
 function init() {
-
-	//This clears the text area 
+   //This clears the text area 
 	document.getElementById("taParsedOutput").value = "";
-
 	//Here we are setting the starting values for the global variables
-  tokens = "";
-  tokenIndex = 0;
-  currentToken = ' ';
-  errorCount = 0;
+   tokens = "";
+   tokenIndex = 0;
+   currentToken = ' ';
+   errorCount = 0;
 }
 
 function btnCompile_click() {
-	//This is the function that is triggered when a user pressed the HiggelyPuff Compile! button
+	//This is the function that is triggered when a user pressed the "HiggelyPuff Compile!" button
 	init();
-	taMessage("HiggelyPuff starts to Compile!");
-
+  var msg = "HiggelyPuff starts to Compile!";
   //grabbing the tokens from the lexer
   tokens = lex();
-
-  taMessage("Trainer Lex returned [" + tokens + "]");
-
+  var msg = "Trainer Lex returned [" + tokens + "]");
   // now we are parsin'
   parse();
 }
@@ -80,14 +71,11 @@ function taMessage(msg) {
 }
 
 function parse() {
-  taMessage("HiggelyPuff is Parsing!!! [" + tokens + "]");
-
+  var taMessage("HiggelyPuff is Parsing!!! [" + tokens + "]");
   //get the next token
   currentToken = grabNextToken();
-
   //a good and valid parse stems from the program production, so we will start there.
   ParseProgram();
-
   //show the results
   taMessage("HiggelyPuff's parse found " + errorCount + " error(s).");
   }
@@ -96,9 +84,9 @@ function parse() {
     // a program production can only be a "block $" so parse that
     parseBlock();
   } else {
-    taMessage(EOF reahed.);
+    taMessage(EOF reached.);
   }
-  }
+  
 
   function parseBlock(){
     //all block productions start with a "{" to denote new scope so we have to make sure it starts with one.
@@ -123,6 +111,10 @@ function checkToken(expectedType) {
   //this is a function to validate that we have the correct token type and to get the next one.
 
   switch(expectedType) {
+    case "program":  taMessage("Expecting a program");
+
+                     if (currentToken=="int"
+
     case "type":  taMessage("Expecting a type (i.e. int, string, and boolean");
 
                   if (currentToken=="int" || currentToken=="string" || currentToken=="boolean") {
@@ -215,16 +207,16 @@ function parseStatementList() {
   //all statement list productions need a statement so we need to check for that.
   //now we look ahead
   if(currentToken != $) {
-    checkToken("statement");
+    parse("statement");
     checkToken("StatementList");
     ParseStatementList();
 
+  } else if {
+
+    checkToken("ε");
+    ParseStatementList();
+
   } else {
-
-    //checkToken("ε");
-    //ParseStatementList();
-
-  //} else {
 
     taMessage("EOF Reached!");
 
@@ -238,27 +230,27 @@ function parseStatement() {
     checkToken("PrintStatement");
     //parseStatement();
 
-  } else {
+  } else if {
 
     checkToken("AssignmentStatement");
     //parseStatement();
 
-  } else {
+  } else if {
 
     checkToken("VarDecl");
     parseStatement();
 
-  } else {
+  } else if {
 
     checkToken("WhileStatement");
     parseStatement();
 
-  } else {
+  } else if {
 
     checkToken("IfStatement");
     parseStatement();
 
-  } else {
+  } else if {
 
     checkToken("Block");
     parseStatement();
@@ -346,17 +338,17 @@ function parseExpr() {
     checkToken("IntExpr");
     parseExpr();
 
-  } else {
+  } else if {
 
     checkToken("StringExpr");
     parseExpr();
 
-  } else {
+  } else if {
 
     checkToken("BooleanExpr");
     parseExpr();
 
-  } else {
+  } else if {
 
     checkToken("Id");
     parseExpr();
@@ -374,7 +366,7 @@ function ParseIntExpr() {
     checkToken("Expr");
     parseIntExpr();
 
-  } else {
+  } else  if {
 
     checkToken("digit");
     parseIntExpr();
@@ -406,7 +398,7 @@ function parseBooleanExpr() {
     checkToken("Expr");
     parseBooleanExpr();
 
-  } else {
+  } else if {
 
     checkToken("boolval");
     parseBooleanExpr();
@@ -435,13 +427,13 @@ function parseCharList() {
     checkToken("CharList");
     parseCharList();
 
-  } else {
+  } else if {
 
     checkToken("space");
     checkToken("CharList");
     parseCharList();
 
-  } else {
+  } else  if {
 
     checkToken("ε");
     parseCharList();
@@ -464,9 +456,14 @@ function getNextToken() {
 }
 
 </script>
-
+   
+  <div>
+    <img style= "float:right;" src="C:\Users\Jon Higgins\Desktop\Compilers-CMPT432/HiggelyPuffCompiler.jpg" alt="Higgelypuff" width="300" height="300"/>
+  </div>
+  <br>
+  <hr>
     <pre>
-<!pre formatted text  which define  equation, digits, and operation>
+<!--pre formatted text  which define  equation, digits, and operation-->
           Our Grammar
 Program               ::== Block $
 Block                 ::== { StatementList }
