@@ -12,7 +12,7 @@ Compilers CMPT 432-Alan Labouseur
     
 </head>
 
-<body onload="init();">
+<body onload= "init();">
     <h1>I choose you HiggelyPuff!</h1>
     <hr>
     <h2> HiggelyPuff Compile!</h2>
@@ -111,9 +111,185 @@ function checkToken(expectedType) {
   //this is a function to validate that we have the correct token type and to get the next one.
 
   switch(expectedType) {
-    case "program":  taMessage("Expecting a program");
+    case "Program":  taMessage("Expecting a Block");
 
-                     if (currentToken=="int"
+                     if (currentToken=="block"){
+                      taMessage("got a Block!")
+                     } else {
+                            errorCount++;
+                            taMessage("NOT a block.  Error at position " +tokenIndex + ".");
+                     }
+                     break;
+
+    case "Block": tamessage(" Expecting a statement");
+
+                  if (currentToken=="{") {
+                    taMessage("got a '{' !");
+                  } if (currentToken=="StatementList") {
+                    taMessage("Got a Statement!");
+                  } if (currentToken=="}") {
+                    taMessage(" got a '}'");
+                  } else {
+                    errorCount++;
+                      taMessage("NOT a { StatementList }.  Error at position " +tokenIndex + ".");
+                  }
+                  break;
+
+    case "StatementList": tamessage("Expecting a statement");
+
+                            if (currentToken=="statement"){
+                              taMessage("got a Statement!");
+                            } if (currentToken=="statementList"){
+                            } if (currentToken=="ε");
+                              taMessage("got a StatementList");
+                            } else {
+                              errorCount++;
+                               taMessage("NOT a StatementList.  Error at position " +tokenIndex + ".");
+                            }
+                            break;
+
+    case "Statement": taMessage("Expecting a Statement");
+
+                      if (currentToken=="PrintStatement" || currentToken=="AssignmentStatement" || currentToken=="VarDecl"|| (currentToken=="WhileStatement" || currentToken=="IfStatement" || currentToken=="Block") {
+                        taMessage("Got a Statement!")
+                      } else {
+                         errorCount++;
+                          taMessage("NOT a Statement.  Error at position " +tokenIndex + ".");
+                      }
+                      break;
+
+    case "PrintStatement": taMessage("Expecting a PrintStatment");
+                            if (currentToken=="print") {
+                            } if (currentToken=="(" {
+                            } if (currentToken=="Expr") {
+                            } if (currentToken==")") {
+                              taMessage("Got a PrintStatement!");
+                            } else {
+                              errorCount++;
+                               taMessage("NOT a PrintStatement.  Error at position " +tokenIndex + ".");
+                      }
+                      break;
+
+    case "AssignmentStatement": taMessage("Expecting an AssignmentStatement");
+
+                                if (currentToken=="Id") {
+                                } if (currentToken=="=") {
+                                } if (currentToken=="Expr") {
+                                  taMessage("Got an AssignmentStatement!");
+                                } else {
+                                  errorCount++;
+                               taMessage("NOT a PrintStatement.  Error at position " +tokenIndex + ".");
+                      }
+                      break;
+
+    case "VarDecl": taMessage("Expecting an VarDecl");
+
+                                if (currentToken=="type") {
+                                } if (currentToken=="id") {
+                                } else {
+                                  errorCount++;
+                               taMessage("NOT a VarDecl.  Error at position " +tokenIndex + ".");
+                      }
+                      break;
+
+        case "WhileStatement": taMessage("Expecting an WhileStatement");
+
+                                if (currentToken=="while") {
+                                } if (currentToken=="BooleanExpr") {
+                                } if (currentToken=="Block") {
+                                  taMessage("Got a WhileStatement!");
+                                } else {
+                                  errorCount++;
+                               taMessage("NOT a WhileStatement.  Error at position " +tokenIndex + ".");
+                      }
+                      break;
+
+      case "IfStatement": taMessage("Expecting an IfStatement");
+
+                                if (currentToken=="if") {
+                                } if (currentToken=="BooleanExpr") {
+                                } if (currentToken=="Block") {
+                                  taMessage("Got an IfStatement!");
+                                } else {
+                                  errorCount++;
+                               taMessage("NOT a IfStatement.  Error at position " +tokenIndex + ".");
+                      }
+                      break;
+
+    case "Expr": taMessage("Expecting a Expr");
+
+                      if (currentToken=="IntExpr" || currentToken=="StringExpr" || currentToken=="BooleanExpr"|| (currentToken=="Id") {
+                        taMessage("Got an Expr");
+                      } else {
+                         errorCount++;
+                          taMessage("NOT a Expr.  Error at position " +tokenIndex + ".");
+                      }
+                      break; 
+
+    case "IntExpr": taMessage("Expecting a IntExpr");
+
+                      if (currentToken=="digit") {
+                      } if (currentToken=="intop") {
+                      } if (currentToken=="Expr") {
+                      } else if {
+                        if (currentToken=="digit") {
+                      }
+                        taMessage("Got an IntExpr");
+                      } else {
+                         errorCount++;
+                          taMessage("NOT a IntExpr.  Error at position " +tokenIndex + ".");
+                      }
+                      break; 
+
+    case "StringExpr": taMessage("Expecting an StringExpr");
+
+                         if (currentToken==" ' ") {
+                         } if (currentToken=="CharList") {
+                         } if (currentToken==" ' ") {
+                           taMessage("Got an StringExpr!");
+                         } else {
+                              errorCount++;
+                               taMessage("NOT a StringExpr.  Error at position " +tokenIndex + ".");
+                      }
+                      break;  
+
+    case "BooleanExpr": taMessage("Expecting an BooleanExpr");
+
+                         if (currentToken=="(") {
+                         } if (currentToken=="Expr") {
+                         } if (currentToken=="boolop") {
+                         } if (currentToken=="Expr") {
+                         } if (currentToken==")") {
+                           taMessage("Got a BooleanExpr!");
+                         } else {
+                              errorCount++;
+                               taMessage("NOT a BooleanExpr.  Error at position " +tokenIndex + ".");
+                      }
+                      break;  
+
+    case "Id": taMessage("Expecting an Id");
+
+                         if (currentToken=="char") {
+                           taMessage("Got a char!");
+                         } else {
+                              errorCount++;
+                               taMessage("NOT a Id.  Error at position " +tokenIndex + ".");
+                      }
+                      break; 
+
+    case "CharList": taMessage("Expecting an CharList");
+
+                         if (currentToken=="char"){
+                         } if (currentToken=="CharList") {
+                         } else if (currentToken=="space"){
+                         } currentToken=="CharList") {
+                         } else if (currentToken=="ε"){
+                           taMessage("Got a CharList!");
+                         } else {
+                              errorCount++;
+                               taMessage("NOT a BooleanExpr.  Error at position " +tokenIndex + ".");
+                      }
+                      break;               
 
     case "type":  taMessage("Expecting a type (i.e. int, string, and boolean");
 
@@ -202,6 +378,7 @@ function checkToken(expectedType) {
                      break;
   }
 }
+}
 
 function parseStatementList() {
   //all statement list productions need a statement so we need to check for that.
@@ -225,7 +402,7 @@ function parseStatementList() {
 }
 
 function parseStatement() {
-  // gotta check and make sure we either get a printstatment, assignment statement, vardecl, while statment, if statment, and or block.
+  // gotta check and make sure we either get a printStatement, assignment statement, vardecl, while Statement, if Statement, and or block.
   if (currentToken != $) {
     checkToken("PrintStatement");
     //parseStatement();
@@ -277,7 +454,7 @@ function parsePrintStatement() {
   }
 }
 
-function parseAssignmentStatment() {
+function parseAssignmentStatement() {
   // need to make sure that it had id = expr
   if(currentToken != $) {
     checkToken("Id");
@@ -305,12 +482,12 @@ function parseVarDecl() {
   }
 }
 
-function parseWhileStatment() {
+function parseWhileStatement() {
   if( currentToken != $) {
     checkToken("while");
     checkToken("BooleanExpr");
     checkToken("Block");
-    parseWhileStatment();
+    parseWhileStatement();
 
   } else {
 
